@@ -5,6 +5,9 @@
 ## 已经创建公开仓库的请点击仓库右上角`Setting`，拉到页面最下方，点击`Change visibility`，选择`Make private`，填入黑体仓库名称进行确认!
 
 ### 方式一(如果有一定github基础，十分建议直接方式二)
+**建议阅读@hshx123大佬的[教程](https://66ccff.work/teach/jd.html)(就不用看下面步骤了)**
+
+
 * 1.创建新仓库[点击创建自己的仓库](https://github.com/new)
 * 2.点击`Import a repository`，在`Your old repository’s clone URL`处填入https://github.com/zero205/JD_tencent_scf
 * 3.然后在`Repository name`处填写仓库名，选择`Private`
@@ -22,7 +25,7 @@
 
 * > 【青龙】拉取仓库命令：`ql repo https://github.com/zero205/JD_tencent_scf.git "jd_|jx_|getJDCookie"  "backUp" "^jd[^_]|USER|sendNotify|sign_graphics_validate|JDJR"`  
 
-* > 腾讯云函数部署【推荐】[点此查看教程](./backUp/tencentscf.md)
+* > 腾讯云函数部署建议阅读@hshx123大佬的[教程](https://66ccff.work/teach/jd.html)【推荐】.[旧教程](./backUp/tencentscf.md)【不推荐】
 
 * > [elecV2P](https://github.com/elecV2/elecV2P) 部署【备用】
     * 安装教程：[点此查看](https://github.com/elecV2/elecV2P-dei/blob/master/docs/01-overview.md)  

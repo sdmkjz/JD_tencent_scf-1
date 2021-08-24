@@ -39,7 +39,7 @@ http-request ^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/user\/detai
 */
 // @grant    require
 const $ = new Env('宠汪汪赛跑');
-import { injectToRequest2 } from './JDJRValidator_Pure';
+const injectToRequest2 = require('./JDJRValidator_Pure').injectToRequest2;
 $.get = injectToRequest2($.get.bind($));
 $.post = injectToRequest2($.post.bind($));
 //宠汪汪赛跑所需token，默认读取作者服务器的
@@ -116,6 +116,7 @@ async function main() {
   }
   const readTokenRes = ''
   // const readTokenRes = await readToken();
+  $.http.get({url: 'https://purge.jsdelivr.net/gh/zero205/updateTeam@main/shareCodes/lkyl.json'}).then((resp) => {}).catch((e) => console.log('刷新CDN异常', e));
   await updateToken()
   if (readTokenRes && readTokenRes.code === 200) {
     $.LKYLToken = readTokenRes.data[0] || ($.isNode() ? (process.env.JOY_RUN_TOKEN ? process.env.JOY_RUN_TOKEN : jdJoyRunToken) : ($.getdata('jdJoyRunToken') || jdJoyRunToken));
