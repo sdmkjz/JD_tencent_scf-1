@@ -1,4 +1,3 @@
-// @grant    require
 /*
 京喜财富岛
 cron 5 0,6-23 * * * jd_cfd.js
@@ -67,7 +66,12 @@ $.appId = 10028;
     await $.wait(1000)
     res = await getAuthorShareCode('https://cdn.jsdelivr.net/gh/Aaron-lv/updateTeam@master/shareCodes/cfd.json')
   }
-  $.strMyShareIds = [...(res && res.shareId || []), ...["62F4243E2A4D0D63C7F70A89B5CF05734E6F63A96F00D35BC8AF6090BC8E5127","A029E3E6DA72DCA8142DCC7372347FB79E59FEAE24AD5A60A4C3C11BB8295E50","DEFEBB4244F76FFC5E1D37CFDAA8C7C7CCC54F7F9A7062668425195D2ECB00C9","9EA01DEDC7A1168F2E3C839BE78E6ACB6D640B1BFD29C38CFDA794AEA08C4CA8","452E94C73FA3B6D18D53600BEC65702242EC1EA7DDDF3E0112D5B56F69120569","7B5F692BF621D298854BDAF146649A21F9EE830B8A338974957AA94305C81ABA","F6EEA90AA596C110F9F67E9D460A9C4CE7707466BA048820E02B8AA037770FDA"]]
+  let res2 = await getAuthorShareCode('https://raw.githubusercontent.com/zero205/updateTeam/main/shareCodes/cfd.json')
+  if (!res2) {
+    await $.wait(1000)
+    res2 = await getAuthorShareCode('https://raw.fastgit.org/zero205/updateTeam/main/shareCodes/cfd.json')
+  }
+  $.strMyShareIds = [...(res && res.shareId || []), ...(res2 || [])]
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
@@ -843,7 +847,7 @@ async function getActTask(type = true) {
           if (type) {
             for (let key of Object.keys(data.Data.TaskList)) {
               let vo = data.Data.TaskList[key]
-              if (vo.dwOrderId === 1 && vo.dwCompleteNum !== vo.dwTargetNum) {
+              if ([1, 2].includes(vo.dwOrderId) && (vo.dwCompleteNum !== vo.dwTargetNum)) {
                 console.log(`开始【🐮牛牛任务】${vo.strTaskName}`)
                 for (let i = vo.dwCompleteNum; i < vo.dwTargetNum; i++) {
                   console.log(`【🐮牛牛任务】${vo.strTaskName} 进度：${i + 1}/${vo.dwTargetNum}`)
@@ -855,7 +859,7 @@ async function getActTask(type = true) {
             data = await getActTask(false)
             for (let key of Object.keys(data.Data.TaskList)) {
               let vo = data.Data.TaskList[key]
-              if (vo.dwCompleteNum >= vo.dwTargetNum && vo.dwAwardStatus !== 1) {
+              if ((vo.dwCompleteNum >= vo.dwTargetNum) && vo.dwAwardStatus !== 1) {
                 await awardActTask('Award', vo)
                 await $.wait(2000)
               }
